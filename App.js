@@ -1,29 +1,58 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, FlatList, Button } from "react-native";
+import RecipeItem from "./components/RecipeItem";
+import RecipeInput from "./components/RecipeInput";
 
 export default function App() {
-  const [outputText, setOutputText] = useState(
-    "Open up App.js to start working on your app!"
-  );
+  const [recipesList, setRecipesList] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false);
+
+  const addRecipeHandler = (recipeTitle) => {
+    setRecipesList((currentRecipes) => [
+      ...currentRecipes,
+      { id: Math.random().toString(), value: recipeTitle },
+    ]);
+    setIsAddMode(false);
+  };
+
+  const removeRecipeHandler = (recipeId) => {
+    setRecipesList((currentRecipes) => {
+      return currentRecipes.filter((recipe) => recipe.id !== recipeId);
+    });
+  };
+
+  const cancelRecipeAdditionHandler = () => {
+    setIsAddMode(false);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>{outputText}</Text>
-      <Button
-        title="Chenge Text"
-        onPress={() => setOutputText("The Text changed!")}
+    <View style={styles.screen}>
+      <View>
+        <Text>Dana's Favorite Recipes</Text>
+      </View>
+      <Button title="Add New Recipe" onPress={() => setIsAddMode(true)} />
+      <RecipeInput
+        visible={isAddMode}
+        onAddRecipe={addRecipeHandler}
+        onCancel={cancelRecipeAdditionHandler}
       />
-      <StatusBar style="auto" />
+      <FlatList
+        data={recipesList}
+        renderItem={(itemData) => (
+          <RecipeItem
+            id={itemData.item.id}
+            title={itemData.item.value}
+            onDelete={removeRecipeHandler}
+          />
+        )}
+      />
     </View>
   );
-  ``;
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+  screen: {
+    padding: 50,
   },
 });
