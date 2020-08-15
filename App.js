@@ -21,7 +21,7 @@ export default function App() {
       return currentRecipes.filter((recipe) => recipe.id !== recipeId);
     });
   };
-
+//
   const cancelRecipeAdditionHandler = () => {
     setIsAddMode(false);
   };
