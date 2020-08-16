@@ -11,7 +11,7 @@ const RecipeInput = (props) => {
     props.onAddRecipe(enteredRecipe);
     setEnteredRecipe("");
   };
-//
+  //
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputContainer}>
