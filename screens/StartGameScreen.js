@@ -64,18 +64,14 @@ const StartGameScreen = (props) => {
             <View style={styles.button}>
               <Button
                 title="Reset"
-                onPress={() => {
-                  resetInputHandler;
-                }}
+                onPress={resetInputHandler}
                 color={Colors.accent}
               />
             </View>
             <View style={styles.button}>
               <Button
                 title="Confirm"
-                onPress={() => {
-                  confirmInputHandler;
-                }}
+                onPress={confirmInputHandler}
                 color={Colors.primary}
               />
             </View>
